@@ -3,7 +3,39 @@ package test;
 import java.util.*;
 import java.io.*;
 
-public class 미로 {
+public class 길찾기 {
+	static int T = 10;
+	
+	// 위 우 아래 좌
+	static int[] dirX = {-1, 0, 1, 0};
+	static int[] dirY = {0, 1, 0, -1}; 
+
+	// 판 초기화
+	static int[][] pan = new int[16][16];
+	
+	static boolean[][] visited = new boolean[16][16];
+	
+	static boolean goYn(int i, int j, char direction) { // 갈 수 있으면 true, 못가면 false
+		int nx;
+		int ny;
+		
+		if(direction == 'U') {
+			nx = i + dirY[0];
+			ny = j + dirX[0];
+		} else if(direction == 'R') {
+			nx = i + dirY[1];
+			ny = j + dirX[1];
+		} else if(direction == 'D') {
+			nx = i + dirY[2];
+			ny = j + dirX[2];
+		} else {// L
+			nx = i + dirY[3];
+			ny = j + dirX[3];
+		}
+		
+		return nx >= 0 && nx < 16 && ny >= 0 && ny < 16 && pan[nx][ny] != 1;
+    }
+	
 	static class Node {
 		int x;
 		int y;
@@ -25,17 +57,6 @@ public class 미로 {
 	            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
 	            BufferedReader br = new BufferedReader(inputStreamReader);
 	            BufferedWriter bw =  new BufferedWriter(new OutputStreamWriter(System.out));
-	            
-	            int T = 10;
-	            
-	            // 위 우 아래 좌
-	        	int[] dirX = {-1, 0, 1, 0};
-	        	int[] dirY = {0, 1, 0, -1}; 
-
-	        	// 판 초기화
-	        	int[][] pan = new int[16][16];
-	        	
-	        	boolean[][] visited = new boolean[16][16];
 	            
 	            for(int test_case = 1; test_case <= T; test_case++) {
 		            int N = Integer.parseInt(br.readLine().trim());
@@ -71,6 +92,7 @@ public class 미로 {
 	            		
 	            		currentX = currentNode.x;
 	            		currentY = currentNode.y; 
+	            		char dir = currentNode.dir;
 	            		
 	            		if (pan[currentY][currentX] == 3) {
 	            			arrive = true;
