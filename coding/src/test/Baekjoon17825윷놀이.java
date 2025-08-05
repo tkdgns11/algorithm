@@ -3,7 +3,15 @@ package test;
 import java.io.*;
 import java.util.*;
 
-class Baekjoon17825 {
+class Baekjoon17825윷놀이 {
+	
+	class Node {
+		Node[] next; // 다음 노드
+		int score; //점수
+		
+	}
+	
+	
 	public static void main(String args[]) throws Exception {
 		// 파일 경로 설정 (프로젝트 폴더 기준)
         FileInputStream fileInputStream = new FileInputStream("input.txt");
@@ -23,6 +31,8 @@ class Baekjoon17825 {
 			}
 			
 			// 윳놀이 판 만들기 
+			
+			
 
 		}
 		bw.flush();
