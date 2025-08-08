@@ -3,7 +3,7 @@ package test;
 import java.util.*;
 import java.io.*;
 
-public class 미로 {
+public class 미로2 {
 	static class Node {
 		int x;
 		int y;
@@ -19,7 +19,11 @@ public class 미로 {
 	}
 
 	public static void main(String[] args) throws Exception {
-	            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	        
+	            // 파일 경로 설정 (프로젝트 폴더 기준)
+	            FileInputStream fileInputStream = new FileInputStream("input.txt");
+	            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+	            BufferedReader br = new BufferedReader(inputStreamReader);
 	            BufferedWriter bw =  new BufferedWriter(new OutputStreamWriter(System.out));
 	            
 	            int T = 10;
@@ -47,25 +51,23 @@ public class 미로 {
 	            	
 	            	boolean arrive = false;
 	            	
-	            	Queue<Node> q = new LinkedList<>();
+	            	Stack<Node> stack = new Stack<>();
 	            	
 	            	int currentX = 1;
 	            	int currentY = 1;
 	            	
 	            	if(pan[currentY+1][currentX] == 0) {
 	            		Node node = new Node(currentX, currentY, 'D');
-	            		q.offer(node);
+	            		stack.push(node);
 	            	} 
 	            	
 	            	if(pan[currentY][currentX+1] == 0) {
 	            		Node node = new Node(currentX, currentY, 'R');
-	            		q.offer(node);
+	            		stack.push(node);
 	            	}
 	            	
-	            	visited[1][1] = true;
-	            	
-	            	while(!q.isEmpty()) {
-	            		Node currentNode = q.poll();
+	            	while(!stack.isEmpty()) {
+	            		Node currentNode = stack.pop();
 	            		
 	            		currentX = currentNode.x;
 	            		currentY = currentNode.y; 
@@ -81,8 +83,8 @@ public class 미로 {
 	            			char nDir = "URDL".charAt(i);
 	            			
 	            			if(nx >= 0 && nx < 16 && ny >= 0 && ny < 16 && !visited[ny][nx] && pan[ny][nx] != 1 ) {
-	            				q.offer(new Node(nx, ny, nDir));
 	            				visited[ny][nx] = true;
+	            				stack.push(new Node(nx, ny, nDir));
 	            			}
 	            		}
 	            	}
@@ -95,8 +97,11 @@ public class 미로 {
 	            	bw.newLine();
 	    		}
 	            
+	            // 리소스 정리
 	            bw.flush();
 	            bw.close();
 	            br.close();
+	            inputStreamReader.close();
+	            fileInputStream.close();
 	    }
 }

@@ -47,7 +47,7 @@ class Baekjoon17825윷놀이 {
 		boolean firstStep = true;
 
 		for (int i = 0; i < dice; i++) {
-			// 첫 칸 이동 전이고, 파란 화살이 있으면 nextBlueNode로
+			// 첫 번째 이동이면서, 파란 화살이 있으면 nextBlueNode로
 			if (firstStep && panArr[cur].blueArrowYn) {
 				cur = panArr[cur].nextBlueNode;
 			} else {

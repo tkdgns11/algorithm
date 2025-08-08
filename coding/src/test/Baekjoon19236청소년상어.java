@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 
 class Baekjoon19236청소년상어 {
+	static int totalScore;
 	
 	// ↑, ↖, ←, ↙, ↓, ↘, →, ↗ 
 	static int[] dirX = {0, -1, -1, -1, 0, 1, 1, 1};
@@ -12,6 +13,8 @@ class Baekjoon19236청소년상어 {
 	static class Fish {
 		int num;
 		int dir;
+		int i;
+		int j;
 		
 		Fish(int num, int dir){
 			this.num = num;
@@ -34,6 +37,26 @@ class Baekjoon19236청소년상어 {
 			super(num, dir);
 		}
 		
+	}
+	
+	// 상어 움직일 수 있는 칸 목록()
+	static Fish[] canGoSharkArea(Fish[] moolgogiPan, Shark shark) {
+		return null;
+	}
+	
+	// 물고기 이동 
+	static Fish[] moolgogiMove(Fish[] moolgogiPan, Shark shark) {
+		return null;
+	}
+	
+	static void dfs(Shark shark, int sum, Moolgogi[] moolgogiPan, Fish[] pan) {
+		// 최대 갱신
+		totalScore = Math.max(totalScore, sum);
+		
+		// 물고기 이동. 상어의 위치에따라 그때그때 물고기의 위치가 다름. 
+		// 이때 상어의 위치 기준 물고기들의 위치, 방향이 담긴 판을 받기.
+		
+		// 상어가 움직일 수 있는 모든 경로
 	}
 
 	public static void main(String args[]) throws Exception {
@@ -58,12 +81,6 @@ class Baekjoon19236청소년상어 {
 		 * 
 		 * 마지막 문단 해석. 상어가 먹을 수 있는 물고기 번호의 합의 최댓값을 구해보자. 가 문제니까, 
 		 * 
-		 * 상어 움직일 수 있는 칸 목록()
-		 * 
-		 * 상어이동dfs()
-		 * 
-		 * 물고기 이동()
-		 * 
 		 * */
 		
 		Fish[][] pan = new Fish [4][4];
@@ -75,13 +92,19 @@ class Baekjoon19236청소년상어 {
 			}
 		}
 		
-		for(int i=0; i<4; i++) {
-			for(int j=0; j<4; j++) {
-				System.out.print(pan[i][j]);
-			}
-			System.out.println();
-		}
 		
+		// 1. 특정 칸에 상어 넣고 dfs
+		// 2. 상어 있는 상태에서 물고기 이동. 
+		// -> 상어 이동가능한 모든 칸 + 판 넣고 dfs
+		
+		//상어를 (0,0) 에 넣고 dfs 호출 
+		
+//		for(int i=0; i<4; i++) {
+//			for(int j=0; j<4; j++) {
+//				System.out.print(pan[i][j]);
+//			}
+//			System.out.println();
+//		}
 		
 		bw.flush();
 		bw.close();
