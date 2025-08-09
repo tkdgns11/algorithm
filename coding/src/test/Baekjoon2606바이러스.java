@@ -15,7 +15,7 @@ class Baekjoon2606바이러스 {
 		visited[node] = true;
 		count++;
 		
-		for(int i=0; i<pan[node].length; i++) {
+		for(int i=1; i<pan[node].length; i++) {
 			if(pan[node][i] == 1 && !visited[i]) {
 				dfs(i);
 			}

@@ -13,7 +13,7 @@ class Baekjoon1260BFSDFS {
 	static void dfs(int start) {
 		dfsResult.add(start); // 본인에 대해 방문처리
 
-		for (int i = 0; i < pan[start].length; i++) {
+		for (int i = 1; i < pan[start].length; i++) { // 1부터 시작 유의
 			if (pan[start][i] == 1 && !visited[i]) {
 				visited[i] = true; // 방문처리를 먼저
 				dfs(i);
@@ -70,7 +70,7 @@ class Baekjoon1260BFSDFS {
 			bfsResult.add(node);
 
 			// 단, 방문할 수 있는 정점이 여러 개인 경우에는 정점 번호가 작은 것을 먼저 방문
-			for (int i = 0; i < pan[node].length; i++) {
+			for (int i = 1; i < pan[node].length; i++) { // 1부터 시작 유의
 				if (pan[node][i] == 1 && !visited[i]) {
 					q.offer(i);
 					visited[i] = true;
