@@ -33,7 +33,7 @@ class Baekjoon15663N과M9 {
 			return;
 		}
 		
-		int last = Integer.MIN_VALUE; // 이 깊이에서 마지막으로 사용한 값
+		int last = Integer.MIN_VALUE; // 이 깊이에서 마지막으로 사용한 값. 이번 depth에서 이미 쓴 값
 		
 		for (int i = 0; i < N; i++) {
             if (input[i] == last) continue; // 같은 깊이에서 같은 값으로 시작하는 가지는 스킵
