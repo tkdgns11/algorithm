@@ -22,7 +22,7 @@ public class SW모의_요리사 {
 		}
 		
 		for(int i=0; i<right.size(); i++) {
-			for(int j=0; j<right.size(); j++) {
+			for(int j=i+1; j<right.size(); j++) {
 				if(i != j) {
 					rightSynerge += pan[right.get(i)][right.get(j)];
 					rightSynerge += pan[right.get(j)][right.get(i)];

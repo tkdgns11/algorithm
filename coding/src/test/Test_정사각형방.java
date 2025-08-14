@@ -9,25 +9,22 @@ public class Test_정사각형방 {
 	static final int[] dy = {-1, 1, 0, 0};
 	static int N;
 	static int[][] pan;
-	static boolean[][] visited;
 	static int count;
 	static int bang;
 	
-	static void dfs(int depth, int startI, int startJ, int initI, int initJ) {
-		visited[startI][startJ] = true;
-		
+	static void dfs(int depth, int curI, int curJ, int initI, int initJ) {
 		if(count < depth) {
 			count = depth;
-			bang = pan[startI][startJ];
+			bang = pan[initI][initJ];
 		} else if(count == depth) {
-			bang = Math.min(pan[startI][startJ], pan[initI][initJ]);
+			bang = Math.min(bang, pan[initI][initJ]);
 		}
 		
 		for(int i=0; i<4; i++) {
-			int nx = startJ + dx[i];
-			int ny = startI + dy[i];
+			int nx = curJ + dx[i];
+			int ny = curI + dy[i];
 			
-			if(nx >= 0 && nx < N && ny >= 0 && ny < N && pan[ny][nx] == pan[startI][startJ] + 1 && !visited[startI][startJ]) {
+			if(nx >= 0 && nx < N && ny >= 0 && ny < N && pan[ny][nx] == pan[curI][curJ] + 1) {
 				dfs(depth+1, ny, nx, initI, initJ);
 			}
 		}
@@ -57,8 +54,7 @@ public class Test_정사각형방 {
 			
 			for(int i=0; i<N; i++) {
 				for(int j=0; j<N; j++) {
-					visited = new boolean[N][N];
-					dfs(0, i, j, i, j);
+					dfs(1, i, j, i, j);
 				}
 			}
 			bw.write("#" + tc + " " + bang + " " + count);
