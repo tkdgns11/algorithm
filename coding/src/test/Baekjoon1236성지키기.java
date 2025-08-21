@@ -17,44 +17,31 @@ public class Baekjoon1236성지키기 {
 		
 		char[][] pan = new char[N][M];
 		
-		boolean[][] panCheck = new boolean[N][M];
+		boolean[] panGaro = new boolean[M];
+		boolean[] panSero = new boolean[N];
 		
 		for(int i=0; i<N; i++) {
 			String str = br.readLine();
 			for(int j=0; j<M; j++) {
 				pan[i][j] = str.charAt(j);
 				if(pan[i][j] == 'X') {
-					for(int ii=0; ii < panCheck[i].length; ii++) {
-						panCheck[i][ii] = true;
-					}
-					
-					for(int ii=0; ii < panCheck.length; ii++) {
-						panCheck[ii][j] = true;
-					}
-					continue;
+					panGaro[j] = true;
+					panSero[i] = true;
 				}
 			}
 		}
 		
-		int count = 0;
-		
-		for(int i=0; i<N; i++) {
-			for(int j=0; j<M; j++) {
-				if(!panCheck[i][j]) {
-					count++;
-					for(int ii=0; ii < panCheck[i].length; ii++) {
-						panCheck[i][ii] = true;
-					}
-					
-					for(int ii=0; ii < panCheck.length; ii++) {
-						panCheck[ii][j] = true;
-					}
-				} 
-				continue;
-			}
+		int countGaro = 0;
+		for(int i=0; i<panGaro.length;i++) {
+			if(!panGaro[i]) countGaro++;
 		}
 		
-		bw.write("" + count);
+		int countSero = 0;
+		for(int i=0; i<panSero.length;i++) {
+			if(!panSero[i]) countSero++;
+		}
+		
+		bw.write("" + Math.max(countGaro, countSero));
 		bw.flush();
 		bw.close();
 		br.close();
