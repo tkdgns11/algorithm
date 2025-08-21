@@ -3,7 +3,7 @@ package test;
 import java.io.*;
 import java.util.*;
 
-public class ASseting {
+public class Asseting {
 
 	public static void main(String[] args) {
 
