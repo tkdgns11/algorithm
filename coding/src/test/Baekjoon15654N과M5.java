@@ -33,7 +33,7 @@ class Baekjoon15654N과M5 {
 			if(!visited[i]) {
 				visited[i] = true;
 				numbers[depth] = input[i];
-				dfs(depth + 1, i + 1); // 계속 start를 넘기네.. 
+				dfs(depth + 1, i + 1);
 				visited[i] = false;
 			}
 		}
