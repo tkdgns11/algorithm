@@ -24,7 +24,6 @@ public class Baekjoon1546 {
 		
 		double total = 0;
 		for(int i=0; i<N; i++) {
-			System.out.println(pan[i]);
 			int tmp = pan[i];
 			total += (double)tmp / Max * 100;
 		}

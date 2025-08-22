@@ -11,7 +11,8 @@ public class Asseting {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 	
 		StringTokenizer st = new StringTokenizer(br.readLine());
-
+		
+		
 	}
 
 }
