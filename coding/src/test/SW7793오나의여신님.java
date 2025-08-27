@@ -5,111 +5,125 @@ import java.util.*;
 
 public class SW7793오나의여신님 {
 
-	static int N;
-	static int M;
+    static int N;
+    static int M;
 
-	static int si;
-	static int sj;
-	static int di;
-	static int dj;
-//	static int ai;
-//	static int aj;
+    static int si;
+    static int sj;
+    static int di;
+    static int dj;
 
-	// 상 하 좌 우
-	static int[] dx = { 0, 0, -1, 1 };
-	static int[] dy = { -1, 1, 0, 0 };
-	static Map<Integer, char[][]> pan;
-	static boolean find;
+    // 상 하 좌 우 (row,col)
+    static int[] dx = { -1, 1, 0, 0 };
+    static int[] dy = { 0, 0, -1, 1 };
 
-	static boolean resultCheck(int time, int i, int j) {
-		char[][] panCheck;
+    public static void main(String[] args) throws IOException {
 
-		if (!pan.containsKey(time)) {
-			makePan(time);
-		}
-		panCheck = pan.get(time);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-		if (i == di && j == dj) {
-			find = true;
-			return false;
-		}
-		
-		if() {
-			
-		}
-	}
+        int T = Integer.parseInt(br.readLine().trim());
 
-	static void dfs(int time, int i, int j) {
-		if(!resultCheck(time, i, j));
-		
-		for(int ii=0; ii<4; ii++) {
-			
-			dfs();
-		}
-	}
+        for (int tc = 1; tc <= T; tc++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
 
-	static void makePan(int time) {
-		char[][] panCopy = pan.get(time - 1);
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < M; j++) {
-				if (panCopy[i][j] == '*') {
-					for (int k = 0; k < 4; k++) {
-						int nx = j + dx[k];
-						int ny = i + dy[k];
+            N = Integer.parseInt(st.nextToken());
+            M = Integer.parseInt(st.nextToken());
 
-						if (ny >= 0 && ny < N && nx >= 0 && nx < M && panCopy[ny][nx] != 'X') {
-							panCopy[ny][nx] = '*';
-						}
-					}
-				}
-			}
-		}
-		pan.put(time, panCopy);
-	}
+            char[][] pan = new char[N][M];
 
-	public static void main(String[] args) throws IOException {
+            si = sj = di = dj = -1;
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+            for (int i = 0; i < N; i++) {
+                String line = br.readLine().trim();
+                for (int j = 0; j < M; j++) {
+                    pan[i][j] = line.charAt(j);
+                    if (pan[i][j] == 'S') {
+                        si = i;
+                        sj = j;
+                    } else if (pan[i][j] == 'D') {
+                        di = i;
+                        dj = j;
+                    }
+                }
+            }
 
-		int T = Integer.parseInt(br.readLine().trim());
+            // -----------------------
+            // 1. 악마 BFS
+            // -----------------------
+            Queue<int[]> devilQ = new LinkedList<>();
+            int[][] devilTime = new int[N][M]; // 악마 도달 시간
+            for (int i = 0; i < N; i++) {
+                Arrays.fill(devilTime[i], Integer.MAX_VALUE);
+            }
 
-		for (int tc = 1; tc <= T; tc++) {
-			StringTokenizer st = new StringTokenizer(br.readLine());
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < M; j++) {
+                    if (pan[i][j] == '*') {
+                        devilQ.offer(new int[]{i, j});
+                        devilTime[i][j] = 0;
+                    }
+                }
+            }
 
-			N = Integer.parseInt(st.nextToken());
-			M = Integer.parseInt(st.nextToken());
+            while (!devilQ.isEmpty()) {
+                int[] cur = devilQ.poll();
+                int x = cur[0], y = cur[1];
+                for (int d = 0; d < 4; d++) {
+                    int nx = x + dx[d];
+                    int ny = y + dy[d];
+                    if (nx >= 0 && nx < N && ny >= 0 && ny < M) {
+                        if (pan[nx][ny] != 'X' && pan[nx][ny] != 'D'
+                                && devilTime[nx][ny] == Integer.MAX_VALUE) {
+                            devilTime[nx][ny] = devilTime[x][y] + 1;
+                            devilQ.offer(new int[]{nx, ny});
+                        }
+                    }
+                }
+            }
 
-			char[][] pan = new char[N][M];
+            // -----------------------
+            // 2. 수연 BFS
+            // -----------------------
+            Queue<int[]> q = new LinkedList<>();
+            boolean[][] visited = new boolean[N][M];
+            q.offer(new int[]{si, sj, 0}); // row, col, time
+            visited[si][sj] = true;
 
-			si = -1;
-			sj = -1;
-			di = -1;
-			dj = -1;
-			// ai = -1;
-			// aj = -1;
+            boolean success = false;
 
-			for (int i = 0; i < N; i++) {
-				st = new StringTokenizer(br.readLine());
-				for (int j = 0; j < M; j++) {
-					pan[i][j] = st.nextToken().charAt(0);
-					if (pan[i][j] == 'S') {
-						si = i;
-						sj = j;
-					} else if (pan[i][j] == 'D') {
-						di = i;
-						dj = j;
-					}
-				}
-			}
+            while (!q.isEmpty()) {
+                int[] cur = q.poll();
+                int x = cur[0], y = cur[1], t = cur[2];
 
-			/**
-			 * 수연이의 위치‘S’, 여신의 공간은 ‘D’, 돌의 위치는 ‘X’, 악마는 ‘*’로 주어진다. ‘.’는 평범한 지역 불가능하면 GAME
-			 * OVER 출력
-			 */
+                if (x == di && y == dj) {
+                    bw.write("#" + tc + " " + t + "\n");
+                    success = true;
+                    break;
+                }
 
-		}
+                for (int d = 0; d < 4; d++) {
+                    int nx = x + dx[d];
+                    int ny = y + dy[d];
+                    if (nx >= 0 && nx < N && ny >= 0 && ny < M) {
+                        if (!visited[nx][ny] && pan[nx][ny] != 'X' && pan[nx][ny] != '*') {
+                            // 수연이가 악마보다 먼저 도착해야만 가능
+                            if (t + 1 < devilTime[nx][ny]) {
+                                visited[nx][ny] = true;
+                                q.offer(new int[]{nx, ny, t + 1});
+                            }
+                        }
+                    }
+                }
+            }
 
-	}
+            if (!success) {
+                bw.write("#" + tc + " GAME OVER\n");
+            }
+        }
 
+        bw.flush();
+        bw.close();
+        br.close();
+    }
 }
