@@ -36,15 +36,6 @@ public class SW샘플_프로세서연결하기 {
 		}
 	}
 
-	/**
-	 * idx: 처리할 cores 인덱스 conn: 지금까지 연결한 코어 개수 len: 지금까지 깐 전선 길이
-	 * 
-	 * 맞아요—idx는 지금 처리할 코어의 인덱스예요. 그래서 마지막으로 “실제로 처리하는” 인덱스는 list.size() - 1이 맞습니다.
-       하지만 **기저 조건은 idx == list.size()**에서 잡습니다. 
-       이유는: 처리 흐름: dfs(0) → … → dfs(1) → … → dfs(2) → … → dfs(list.size())
-	   idx == list.size()는 마지막 코어(size-1)까지 결정이 끝난 다음에 도달하는 “종료 단계”
-	   따라서 기저는 idx == size에서 결과 갱신, 그 전까지는 idx < size에서 list.get(idx)로 현재 코어 처리
-	 */
 	static void dfs(int idx, int conn, int len) {
 		if (idx == list.size()) {
 			check(conn, len);
