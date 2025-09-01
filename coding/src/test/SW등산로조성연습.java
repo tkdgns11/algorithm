@@ -34,7 +34,7 @@ public class SW등산로조성연습 {
 					dfs(depth+1, ny, nx, used); 
 					visited[ny][nx] = false;
 				} else {
-					// 나보다 크거나 같으면 이동 안하거나, k줄여서 이동하거나
+					// 나보다 크거나 같으면 공사가능하면 이동 
 					if(K > pan[ny][nx] - pan[i][j] && !used) {
 						int tmp = pan[ny][nx];
 						pan[ny][nx] = pan[i][j] - 1;
