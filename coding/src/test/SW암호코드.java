@@ -5,6 +5,9 @@ import java.util.*;
 
 public class SW암호코드 {
 
+	static int N,M;
+	static char[][] pan;
+	
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -24,9 +27,20 @@ public class SW암호코드 {
 			   총 소요시간이 적을수록 성능이 좋은 것으로 간주된다.
 			   
 			   암호 코드 하나당 숫자 8개. -> 고유번호 7개, 검증코드 1개
-			   
-			   
 			 */
+			
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			
+			N = Integer.parseInt(st.nextToken());
+			M = Integer.parseInt(st.nextToken());
+			
+			pan = new char[N][M];
+			
+			for(int i=0; i<N; i++) {
+				for(int j=0; j<M; j++) {
+					
+				}
+			}
 			
 			
 			
