@@ -25,14 +25,6 @@ public class Baekjoon1302베스트셀러 {
 			}
 		}
 		
-		Entry entry = map.entrySet()
-		
-		while(it.hasNext()) {
-			Entry entry = (Entry) it.next();
-			int value = entry.getValue();
-		}
-		
-		
 	}
 
 }
