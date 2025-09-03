@@ -4,9 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class SW최대상금0903 {
-	
 	static int[] numbers;
-	static int[] choices;
 	static Map<String, String> map;
 	static int[] result;
 	static int count;
