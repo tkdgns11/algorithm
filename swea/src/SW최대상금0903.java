@@ -5,7 +5,7 @@ import java.util.*;
 
 public class SW최대상금0903 {
 	static int[] numbers;
-	static Map<String, String> map;
+	static Set<String> set;
 	static int[] result;
 	static int count;
 	
@@ -33,11 +33,7 @@ public class SW최대상금0903 {
 			sb.append(arr[i]);
 		}
 		
-		if(map.containsKey(sb.toString())) {
-			return;
-		} else {
-			map.put(sb.toString(), "1");
-		}
+		if(!set.add(sb.toString())) return;
 		
 		for(int i=0; i<numbers.length; i++) {
 			for(int j=0; j<numbers.length; j++) {
@@ -72,7 +68,7 @@ public class SW최대상금0903 {
 				numbers[i] = Integer.parseInt("" + nums.charAt(i));
 			}
 			
-			map = new HashMap<>();
+			set = new HashSet<>();
 			
 			result = new int[nums.length()];
 			dfs(0, numbers);
