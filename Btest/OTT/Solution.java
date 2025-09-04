@@ -1,4 +1,4 @@
-package B.OTT;
+package OTT;
 
 import java.util.Scanner;
 
