@@ -17,11 +17,27 @@ public class SW하나로0905 {
 		int y;
 
 		Node(int idx, int x, int y) {
+			this.idx = idx;
 			this.x = x;
 			this.y = y;
 		}
 
 		Node() {
+		}
+	}
+
+	static class Edge implements Comparable<Edge> {
+		int to;
+		double w;
+
+		Edge(int to, double w) {
+			this.to = to;
+			this.w = w;
+		}
+
+		@Override
+		public int compareTo(Edge o) {
+			return Double.compare(this.w, o.w);
 		}
 	}
 
@@ -52,66 +68,43 @@ public class SW하나로0905 {
 
 			for (int i = 1; i < N; i++) {
 				for (int j = i + 1; j <= N; j++) {
-					Node node1 = nodes[i];
-					Node node2 = nodes[j];
-					double dist = E * (Math.pow((node1.x - node2.x), 2) + Math.pow((node1.y - node2.y), 2));
+					Node a = nodes[i], b = nodes[j];
+					long dx = (long) a.x - b.x;
+					long dy = (long) a.y - b.y;
+					double dist = E * (dx * dx + dy * dy);
 					pan[i][j] = dist;
 					pan[j][i] = dist;
 				}
 			}
 
-			ans = 0;
+			ans = 0.0;
 
-			PriorityQueue<Integer> q = new PriorityQueue<>();
-
-			q.add(1);
+			PriorityQueue<Edge> pq = new PriorityQueue<>();
+			pq.add(new Edge(1, 0.0));
 
 			int picked = 0;
 
-			System.out.println("판 찍어보자" + E);
-			for (int i = 0; i < N + 1; i++) {
-				for (int j = 0; j < N + 1; j++) {
-					System.out.print(" " + pan[i][j]);
-				}
-				System.out.println();
-			}
-
-			while (!q.isEmpty()) {
-				int node = q.poll();
-				
-				System.out.println("node == " + node);
-
-				if (visited[node])
-					continue;
-
-				visited[node] = true;
+			while (!pq.isEmpty()) {
+				Edge cur = pq.poll();
+				int next = cur.to;
+				if (visited[next]) continue;
+				visited[next] = true;
 				picked++;
 
-				if (picked == N)
-					break;
-
-				double minValue = Double.MAX_VALUE;
-				int minIdx = -1;
+				ans += cur.w;
+				if (picked == N) break;
 
 				for (int i = 1; i <= N; i++) {
-					if (node == i || visited[i])
-						continue;
-
-					if (minValue > pan[node][i]) {
-						minValue = pan[node][i];
-						minIdx = i;
+					if (!visited[i] && i != next) {
+						pq.offer(new Edge(i, pan[next][i]));
 					}
 				}
-				System.out.println("minIdx == " + minIdx );
-				System.out.println("이거 더하자" + pan[node][minIdx]);
-				visited[minIdx] = true;
-				ans += pan[node][minIdx];
-				q.offer(minIdx);
 			}
-			bw.write("#");
+			bw.write('#');
+			bw.write(Integer.toString(tc));
 			bw.write(' ');
-			bw.write(Double.toString(ans));
-			bw.write("\n");
+			bw.write(Long.toString(Math.round(ans)));
+			bw.write('\n');
 		}
 		bw.flush();
 		bw.close();
