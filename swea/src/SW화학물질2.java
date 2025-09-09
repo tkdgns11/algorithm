@@ -12,15 +12,25 @@ public class SW화학물질2 {
 	static boolean[] visited;
 	static int[] number;
 	static int minCalc;
+	static boolean findResult;
+	static Map<String, Integer> memo;
 
 	static void dfs(int depth, List<int[]> arr, int sum) {
 		if (arr.size() == 1) {
 			minCalc = Math.min(minCalc, sum);
+			if(!findResult) findResult = true;
 			return;
 		}
+		
+		if(findResult && sum > minCalc) return;
+		
+		String key = makeKey(arr);
+	    Integer best = memo.get(key);
+	    if (best != null && best <= sum) return;
+	    memo.put(key, sum);
 
 		for (int i = 1; i < arr.size(); i++) {
-			List<int[]> copy = new LinkedList<>();
+			List<int[]> copy = new ArrayList<>();
 			
 			int[] prev = arr.get(i-1);
 			int[] cur = arr.get(i);
@@ -35,11 +45,20 @@ public class SW화학물질2 {
 				System.arraycopy(origin, 0, arrCopy, 0, 2);
 				copy.add(arrCopy);
 			}
+			
 			copy.remove(i-1);
 			copy.remove(i-1);
 			copy.add(i-1, newNode);
 			dfs(depth-1, copy, sum + calcSum);
 		}
+	}
+	
+	static String makeKey(List<int[]> arr) {
+	    StringBuilder sb = new StringBuilder(arr.size() * 8);
+	    for (int[] rc : arr) {
+	        sb.append(rc[0]).append(',').append(rc[1]).append(';'); // "r,c;..."
+	    }
+	    return sb.toString();
 	}
 
 	static void checkBox(int colCount, int startI, int j) {
@@ -58,6 +77,8 @@ public class SW화학물질2 {
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		long startTime = System.currentTimeMillis();
 
 		int T = Integer.parseInt(br.readLine().trim());
 
@@ -100,14 +121,14 @@ public class SW화학물질2 {
 				}
 			}
 			
-			int min = Integer.MAX_VALUE;
 			int index = -1;
-			for(int i=0; i<list.size(); i++) {
-				int[] tmp = list.get(i);
-				if(tmp[0] < min) {
-					index = i;
-					min = tmp[0];
+			outer : for(int i=0; i<list.size(); i++) {
+				int[] value = list.get(i);
+				for(int j=0; j<list.size(); j++) {
+					int[] value2 = list.get(j);
+					if(value[0] == value2[1]) continue outer;
 				}
+				index = i;
 			}
 			
 			list2 = new ArrayList<>();
@@ -123,9 +144,12 @@ public class SW화학물질2 {
 					}
 				}
 			}
+			
 			visited = new boolean[list.size()];
 			number = new int[list.size()];
 			minCalc = Integer.MAX_VALUE;
+			findResult = false;
+			memo = new HashMap<>();
 			dfs(list.size(), list2, 0);
 			
 			bw.write('#');
@@ -134,6 +158,7 @@ public class SW화학물질2 {
 			bw.write(Integer.toString(minCalc));
 			bw.write('\n');
 		}
+		System.out.println("걸린시간 : " + (System.currentTimeMillis() - startTime));
 		bw.flush();
 		bw.close();
 		br.close();
