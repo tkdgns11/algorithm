@@ -3,6 +3,9 @@ package src;
 import java.io.*;
 import java.util.*;
 
+/**
+ * 매트릭스 체인 알고리즘으로 하면 훨씬 빠름. -> 공식이 있음
+ */
 public class SW화학물질2 {
 
 	static int N;
@@ -77,8 +80,6 @@ public class SW화학물질2 {
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		
-		long startTime = System.currentTimeMillis();
 
 		int T = Integer.parseInt(br.readLine().trim());
 
@@ -150,6 +151,7 @@ public class SW화학물질2 {
 			minCalc = Integer.MAX_VALUE;
 			findResult = false;
 			memo = new HashMap<>();
+			
 			dfs(list.size(), list2, 0);
 			
 			bw.write('#');
@@ -158,7 +160,6 @@ public class SW화학물질2 {
 			bw.write(Integer.toString(minCalc));
 			bw.write('\n');
 		}
-		System.out.println("걸린시간 : " + (System.currentTimeMillis() - startTime));
 		bw.flush();
 		bw.close();
 		br.close();
