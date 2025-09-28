@@ -10,8 +10,8 @@ import java.util.*;
 public class 소금쟁이 {
 
 	// 상 하 좌 우
-	static final int[] di = { -1, -1, 1, 0, 0 };
-	static final int[] dj = { -1, 0, 0, -1, 1 };
+	static final int[] di = { 0, -1, 1, 0, 0 };
+	static final int[] dj = { 0, 0, 0, -1, 1 };
 	static int N;
 
 	static class Bug {
@@ -78,21 +78,20 @@ public class 소금쟁이 {
 				int dir = Integer.parseInt(st.nextToken());
 				list.add(new Bug(row, col, dir, i));
 			}
-			//List<Bug> removeList;
 			/**
 			 * 버그 하나 선택, 3번 뛰면서 로직처리.
 			 */
-			//int moveBugIdx = 0;
-			Bug bug = null;
-			for (int i = 0; i < M; i++) {
-				Bug tmp = list.get(i);
-				if (tmp != null && tmp.myOrder(i)) {
-					bug = tmp;
-					break;
+			outer : for (int i = 0; i < M; i++) {
+				Bug bug = null;
+				for (int ii = 0; ii < list.size(); ii++) {
+					Bug tmp = list.get(ii);
+					if (tmp != null && tmp.myOrder(i)) {
+						bug = tmp;
+						break;
+					}
 				}
 				if (bug == null) continue;
 				for (int n = 0; n < 3; n++) {
-					//removeList = new ArrayList<>();
 					int ni = 0, nj = 0;
 					if (n == 0) {
 						ni = bug.i + di[bug.d] * 3;
@@ -108,7 +107,7 @@ public class 소금쟁이 {
 					if (!inRange(ni, nj)) {
 						// 밖으로 뜀
 						list.remove(bug);
-						continue;
+						continue outer;
 					} else {
 						// 배치 버그
 						for (int j = 0; j < M; j++) {
@@ -122,7 +121,6 @@ public class 소금쟁이 {
 									}
 								}
 								if (batchBug != null && ni == batchBug.i && nj == batchBug.j) {
-									//removeList.add(batchBug);
 									list.remove(batchBug);
 								}
 							} else if (j < i) {
@@ -136,21 +134,16 @@ public class 소금쟁이 {
 									}
 								}
 								if (stayBug != null && ni == stayBug.i && nj == stayBug.j) {
-									//removeList.add(bug);
 									list.remove(bug);
-									continue;
+									continue outer;
 								}
 							}
 						}
 						bug.i = ni;
 						bug.j = nj;
 					}
-//					for (int r = 0; r < removeList.size(); r++) {
-//						list.remove(removeList.get(r));
-//					}
 				}
 			}
-			//moveBugIdx++;
 			bw.write("#" + tc + " " + list.size());
 			bw.write('\n');
 		}
