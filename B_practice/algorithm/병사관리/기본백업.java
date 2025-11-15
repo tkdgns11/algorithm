@@ -9,7 +9,7 @@ import java.util.*;
  * mId로 병사 하나에 접근은 ? -> 병사 배열.
  */
 
-class UserSolution
+class 기본백업
 {
 	private Soldier[] soldiers;	
 	private LinkedList[] linkedList;
