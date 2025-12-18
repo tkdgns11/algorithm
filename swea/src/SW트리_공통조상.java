@@ -19,7 +19,7 @@ public class SW트리_공통조상 {
 		count++;
 		
 		for(int i=0; i<tree[node].size(); i++) {
-			int child = (int) tree[node].get(i);
+			int child = tree[node].get(i);
 			if(!visited[child]) {
 				dfs(child);
 			}
