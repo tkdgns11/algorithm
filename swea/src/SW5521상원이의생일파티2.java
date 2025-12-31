@@ -18,7 +18,6 @@ public class SW5521상원이의생일파티2 {
 			int N = Integer.parseInt(st.nextToken()); 
 			int M = Integer.parseInt(st.nextToken()); 
 			
-			// ArrayList 배열 
 			List<Integer>[] pan = new ArrayList[N+1];
 			
 		    for(int i=1; i<=N; i++) {
