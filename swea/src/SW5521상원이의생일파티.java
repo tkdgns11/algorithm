@@ -35,14 +35,14 @@ public class SW5521상원이의생일파티 {
             }
             
             Queue<int[]> q = new LinkedList<>();
-            q.offer(new int[]{1, 0});
+            q.offer(new int[]{1, 0}); // 여기서 왜 [1,0] 이렇게 넣었는지.. ? 아, depth
             visited[1] = true;
             
             int count = 0;
             
             while (!q.isEmpty()) {
                 int[] cur = q.poll();
-                int friend = cur[0];
+                int person = cur[0];
                 int depth = cur[1];
                 
                 if (depth > 0 && depth <= 2) {
@@ -51,7 +51,7 @@ public class SW5521상원이의생일파티 {
                 
                 if (depth == 2) continue;
                 
-                for (int next : pan[friend]) {
+                for (int next : pan[person]) {
                     if (!visited[next]) {
                         visited[next] = true;
                         q.offer(new int[]{next, depth + 1});
