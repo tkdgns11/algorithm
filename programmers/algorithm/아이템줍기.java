@@ -4,6 +4,8 @@ import java.util.*;
 
 /**
  * https://school.programmers.co.kr/learn/courses/30/lessons/42898
+ * 
+ * 내부를 칠할때 변하고 겹치므로 *2 하는게 포인트. 
  */
 public class 아이템줍기 {
 	
