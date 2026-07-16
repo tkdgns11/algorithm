@@ -2,6 +2,9 @@ package algorithm;
 
 import java.util.*;
 
+/**
+ * https://school.programmers.co.kr/learn/courses/30/lessons/49189
+ */
 public class 가장먼노드 {
 	
 	public int solution(int n, int[][] edge) {
